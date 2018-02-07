@@ -43,9 +43,15 @@ function next(answer) {
     answers.pop();
   }
   else if (answer) {
-    answers.push({q: n, a: answer});
+    var bool = false;
+    if (document.getElementById('qWeight').checked) {
+      bool = true;
+    }
+    answers.push({q: n, a: answer, xtrWeight: bool});
   }
-
+  if (document.getElementById('qWeight').checked) {
+    document.getElementById('qWeight').checked = false;
+  }
   if (n < data.subjects.length - 1 && answer !== 'back') {
     n ++;
     changeQuestionText();
@@ -118,7 +124,12 @@ function clacResult() {
   for (var b = 0; b < answers.length; b++) {
     for (var i = 0; i < data.subjects[answers[b].q].parties.length; i++) {
       if (data.subjects[answers[b].q].parties[i].position === answers[b].a) {
-        parties[i].score += 1;
+        if (answers[b].xtrWeight) {
+          parties[i].score += 2;
+        }
+        else {
+          parties[i].score += 1;
+        }
       }
     }
   }
