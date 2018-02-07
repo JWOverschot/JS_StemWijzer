@@ -1,5 +1,28 @@
+body, html {
+ 	height: 100%;
+    margin: 0;
+    padding: 0;
+}
+#bg-img {
+	background-image: url(imgs/10021218_tweede-kamer-stoeltjes.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    position: fixed;
+    height: 100%;
+    max-height: 100%;
+    margin: 0;
+    padding: 0;
+    background-size: 100% 100%;
+    width: 100%;
+    z-index: -50;
+}
 content {
-    width: 80%;
+	padding: 5%;
+    width: 70%;
     display: block;
     margin-left: 10%;
+    background-color: white;
+}
+ol :first-child {
+	font-weight: bold;
 }
