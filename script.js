@@ -1,5 +1,5 @@
 var data;
-var answers = {};
+var answers = [];
 var parties = [];
 
 function loadJSON(callback) {   
@@ -39,22 +39,25 @@ function start() {
 
 function next(answer) {
   // possible answers: pro, ambivalent, contra, skip
-  if (answer !== 'skip') {
-    answers[n] = answer;
-
-    for (var i = 0; i < data.subjects[n].parties.length; i++) {
-      if (data.subjects[n].parties[i].position === answer) {
-        parties[i].score += 1;
-      }
-    }
+  if (answer === 'back') {
+    answers.pop();
   }
-  if (n < data.subjects.length - 1) {
+  else if (answer !== 'skip') {
+    answers.push({q: n, a: answer});
+  }
+
+  if (n < data.subjects.length - 1 && answer !== 'back') {
     n ++;
+    changeQuestionText();
+  }
+  else if (answer === 'back') {
+    n --;
     changeQuestionText();
   }
   else {
     document.getElementById('questions').style.display = 'none';
     document.getElementById('results').style.display = 'block';
+    clacResult();
     var result =  parties.sort(function(a, b) {
       return parseFloat(b.score) - parseFloat(a.score);
     });
@@ -74,7 +77,17 @@ function next(answer) {
       el.innerHTML = "Er zijn geen partijen die overeenkomen met uw antwoorden.";
       var h3 = document.getElementById("results-title");
       insertAfter(h3, el);
-      ocument.getElementById('party').parentNode.removeChild(elem);
+      document.getElementById('party').parentNode.removeChild(elem);
+    }
+  }
+}
+
+function clacResult() {
+  for (var b = 0; b < answers.length; b++) {
+    for (var i = 0; i < data.subjects[answers[b].q].parties.length; i++) {
+      if (data.subjects[answers[b].q].parties[i].position === answers[b].a) {
+        parties[i].score += 1;
+      }
     }
   }
 }

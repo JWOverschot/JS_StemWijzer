@@ -8,18 +8,20 @@
 	<script src="script.js" type="text/javascript" charset="utf-8" async defer></script>
 </head>
 <body>
+	<div id="bg-img"></div>
 	<content id="start">
 		<img src="./imgs/logo-stemwijzer.svg" alt="logo-stemwijzer">
 		<h2>Test uw politieke voorkeur aan de hand van 3 stellingen</h2>
 		<button onclick="start()">Start</button>
 	</content>
 	<content id="questions" style="display: none">
+		<button onclick="next('back')">back</button>
 		<h3 id="question-title"></h3>
 		<p id="question-text"></p>
 		<button onclick="next('pro')">Eens</button>
 		<button onclick="next('ambivalent')">Geen van beide</button>
 		<button onclick="next('contra')">Oneens</button>
-		<button onclick="next('skip')">Sla deze vraag over</button>
+		<a href="#" onclick="next('skip')">Sla deze vraag over >></a>
 	</content>
 	<content id="results" style="display: none">
 		<h3 id="results-title">Resultaten</h3>
