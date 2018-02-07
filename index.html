@@ -23,6 +23,17 @@
 		<button onclick="next('contra')">Oneens</button>
 		<a href="#" onclick="next('skip')">Sla deze vraag over >></a>
 	</content>
+	<content id="options" style="display: none">
+		<div>
+			<label for="big-parties">Alleen grote partijen</label>
+			<input id="big-parties" type="checkbox">
+		</div>
+		<div>
+			<label for="secular-parties">Alleen seculiere partijen</label>
+			<input id="secular-parties" type="checkbox">
+		</div>
+		<button id="resultsBtn">Bekijk resultaten</button>
+	</content>
 	<content id="results" style="display: none">
 		<h3 id="results-title">Resultaten</h3>
 		<ol id="party"></ol>

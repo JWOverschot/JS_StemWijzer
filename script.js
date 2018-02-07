@@ -42,7 +42,7 @@ function next(answer) {
   if (answer === 'back') {
     answers.pop();
   }
-  else if (answer !== 'skip') {
+  else if (answer) {
     answers.push({q: n, a: answer});
   }
 
@@ -56,29 +56,61 @@ function next(answer) {
   }
   else {
     document.getElementById('questions').style.display = 'none';
-    document.getElementById('results').style.display = 'block';
-    clacResult();
-    var result =  parties.sort(function(a, b) {
-      return parseFloat(b.score) - parseFloat(a.score);
-    });
-    for (var i = 0; i < 5; i++) {
-      if (parties[i].score !== 0) {
-        var entry = document.createElement('li');
-        entry.appendChild(document.createTextNode(result[i].party));
-        document.getElementById('party').appendChild(entry);
-      }
-    }
-    if (!document.getElementById('party').hasChildNodes()) {
-      function insertAfter(referenceNode, newNode) {
-        referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
-      }
+    document.getElementById('options').style.display = 'block';
+    document.getElementById('resultsBtn').addEventListener("click", results);
+  }
+}
 
-      var el = document.createElement("p");
-      el.innerHTML = "Er zijn geen partijen die overeenkomen met uw antwoorden.";
-      var h3 = document.getElementById("results-title");
-      insertAfter(h3, el);
-      document.getElementById('party').parentNode.removeChild(elem);
+function setOptions() {
+  if (document.getElementById('big-parties').checked) {
+    data.parties.forEach(function(element) {
+        eleName = element.name;
+      if (element.size < 15) {
+        var index = parties.map(function(e) { return e.party; }).indexOf(eleName);
+        if (index !== -1) {
+          parties.splice(index, 1);
+        }
+      }
+    });
+  }
+  if (document.getElementById('secular-parties').checked) {
+    data.parties.forEach(function(element) {
+        eleName = element.name;
+      if (element.secular === false) {
+        var index = parties.map(function(e) { return e.party; }).indexOf(eleName);
+        if (index !== -1) {
+          parties.splice(index, 1);
+        }
+      }
+    });
+  }
+}
+
+function results() {
+  document.getElementById('options').style.display = 'none';
+  document.getElementById('results').style.display = 'block';
+  clacResult();
+  var result =  parties.sort(function(a, b) {
+    return parseFloat(b.score) - parseFloat(a.score);
+  });
+  setOptions();
+  for (var i = 0; i < parties.length; i++) {
+    if (parties[i].score !== 0) {
+      var entry = document.createElement('li');
+      entry.appendChild(document.createTextNode(result[i].party));
+      document.getElementById('party').appendChild(entry);
     }
+  }
+  if (!document.getElementById('party').hasChildNodes()) {
+    function insertAfter(referenceNode, newNode) {
+      referenceNode.parentNode.insertBefore(newNode, referenceNode.nextSibling);
+    }
+
+    var el = document.createElement("p");
+    el.innerHTML = "Er zijn geen partijen die overeenkomen met uw antwoorden.";
+    var h3 = document.getElementById("results-title");
+    insertAfter(h3, el);
+    document.getElementById('party').parentNode.removeChild(elem);
   }
 }
 
