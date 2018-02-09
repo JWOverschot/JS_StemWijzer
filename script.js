@@ -57,8 +57,15 @@ function next(answer) {
     changeQuestionText();
   }
   else if (answer === 'back') {
-    n --;
-    changeQuestionText();
+    if (n === 0 ) {
+      document.getElementById('start').style.display = 'block';
+      document.getElementById('questions').style.display = 'none';
+    }
+    else {
+      n --;
+      changeQuestionText();
+    }
+    
   }
   else {
     document.getElementById('questions').style.display = 'none';
