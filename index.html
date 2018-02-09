@@ -11,38 +11,60 @@
 </head>
 <body>
 	<div id="bg-img"></div>
-	<content id="start">
-		<img src="./imgs/logo-stemwijzer.svg" alt="logo-stemwijzer">
-		<h2>Test uw politieke voorkeur aan de hand van 3 stellingen</h2>
-		<button onclick="start()">Start</button>
-	</content>
-	<content id="questions" style="display: none">
-		<button onclick="next('back')">back</button>
-		<div>
-			<label for="qWeight">Alleen grote partijen</label>
-			<input id="qWeight" type="checkbox">
-		</div>
-		<h3 id="question-title"></h3>
-		<p id="question-text"></p>
-		<button onclick="next('pro')">Eens</button>
-		<button onclick="next('ambivalent')">Geen van beide</button>
-		<button onclick="next('contra')">Oneens</button>
-		<a href="#" onclick="next('skip')">Sla deze vraag over >></a>
-	</content>
-	<content id="options" style="display: none">
-		<div>
-			<label for="big-parties">Alleen grote partijen</label>
-			<input id="big-parties" type="checkbox">
-		</div>
-		<div>
-			<label for="secular-parties">Alleen seculiere partijen</label>
-			<input id="secular-parties" type="checkbox">
-		</div>
-		<button id="resultsBtn">Bekijk resultaten</button>
-	</content>
-	<content id="results" style="display: none">
-		<h3 id="results-title">Resultaten</h3>
-		<ol id="party"></ol>
-	</content>
+	<div class="container">
+		<content id="start">
+			<img src="./imgs/logo-stemwijzer.svg" alt="logo-stemwijzer">
+			<h2 id="start-description"></h2>
+			<button class="btn btn-primary" onclick="start()">Start</button>
+		</content>
+
+		<content id="questions" style="display: none">
+			<button class="btn btn-link row" onclick="next('back')"><i class="fas fa-2x fa-chevron-circle-left"></i></button>
+			<h3 id="question-title"></h3>
+			<p id="question-text"></p>
+			<label for="qWeight" class="custom-control custom-checkbox">
+				<input id="qWeight" type="checkbox" class="custom-control-input">
+				<span class="custom-control-indicator"></span>
+				<span class="custom-control-description">Deze stelling telt zwaarder mee</span>
+			</label>
+			<div class="col-xs-12">
+				<button class="btn btn-primary" onclick="next('pro')">Eens</button>
+				<button class="btn btn-primary" onclick="next('ambivalent')">Geen van beide</button>
+				<button class="btn btn-primary" onclick="next('contra')">Oneens</button>
+				<a href="#" onclick="next('skip')">Sla deze vraag over >></a>
+			</div>
+			<div class="dropdown-divider"></div>
+			<div class="col-xs-12">
+				<button id="partyAnsBtn" class="btn btn-outline-primary">Wat vinden de partijen?</button>
+			</div>
+			<div id="partyAns" class="row" style="display: none;">
+				<div class="col-sm-4 col-xs-12">
+					<h2>Eens</h2>
+					<div id="pro"></div>
+				</div>
+				<div class="col-sm-4 col-xs-12">
+					<h2>Geen van beide</h2>
+					<div id="ambivalent"></div>
+				</div>
+				<div class="col-sm-4 col-xs-12">
+					<h2>Oneens</h2>
+					<div id="contra"></div>
+				</div>
+			</div>
+		</content>
+
+		<content id="options" style="display: none">
+			<label for="big-parties" class="custom-control custom-checkbox">
+				<input id="big-parties" type="checkbox" class="custom-control-input">
+				<span class="custom-control-indicator"></span>
+				<span class="custom-control-description">Alleen grote partijen</span>
+			</label>
+			<label for="secular-parties" class="custom-control custom-checkbox">
+				<input id="secular-parties" type="checkbox" class="custom-control-input">
+				<span class="custom-control-indicator"></span>
+				<span class="custom-control-description">Alleen seculiere partijen</span>
+			</label>
+			<button class="btn btn-success" id="resultsBtn">Bekijk resultaten</button>
+		</content>
 </body>
 </html>

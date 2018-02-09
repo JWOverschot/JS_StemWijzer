@@ -21,14 +21,48 @@ function init() {
     for (var i = 0; i < data.parties.length; i++) {
       parties.push({party: data.parties[i].name, score: 0});
     }
+    document.getElementById('start-description').innerHTML = `Test uw politieke voorkeur aan de hand van ${data.subjects.length} stellingen`;
  });
 }
 
 init();
 n = 0;
+
+document.getElementById('partyAnsBtn').addEventListener("click", function() {
+  if (document.getElementById('partyAns').style.display == 'none') {
+    document.getElementById('partyAns').style.display = '';
+  }
+  else {
+    document.getElementById('partyAns').style.display = 'none';
+  }
+});
+
 function changeQuestionText() {
+  document.getElementById('pro').innerHTML = '';
+  document.getElementById('ambivalent').innerHTML = '';
+  document.getElementById('contra').innerHTML = '';
+
   document.getElementById('question-title').innerHTML = (n+1) + '. ' + data.subjects[n].title;
   document.getElementById('question-text').innerHTML = data.subjects[n].statement;
+  data.subjects[n].parties.forEach(function(ele) {
+    var pos;
+    if (ele.position === 'pro') {
+      pos = 'pro';
+    }
+    else if (ele.position === 'ambivalent') {
+      pos = 'ambivalent';
+    }
+    else if (ele.position === 'contra') {
+      pos = 'contra';
+    }
+
+    document.getElementById(pos).innerHTML += `
+      <details>
+        <summary>${ele.name}</summary>
+        <p>${ele.explanation}</p>
+      </details>
+    `;
+  });
 }
 
 function start() {
